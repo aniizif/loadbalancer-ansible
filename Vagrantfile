@@ -14,6 +14,11 @@ Vagrant.configure("2") do |config|
   (1..3).each do |i|
     config.vm.define "node#{i}" do |node|
       node.vm.network "private_network", ip: "192.168.1.#{24+i}"
+      
+      if i == 3
+        node.vm.network "forwarded_port", guest: 80, host: 8080
+      end
+
       node.vm.hostname="node#{i}"
 
       node.vm.provision "shell", inline: <<-SHELL
