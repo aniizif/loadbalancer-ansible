@@ -1,0 +1,19 @@
+- name: Apply common role
+  hosts: all
+  become: true
+  roles:
+    - common
+
+- name: Setup web servers
+  hosts: webservers
+  become: true
+  roles:
+    - webservers
+
+- name: Setup load balancer
+  hosts: loadbalancer
+  become: true
+  vars:
+    upstream_name: app 
+  roles:
+    - loadbalancer
